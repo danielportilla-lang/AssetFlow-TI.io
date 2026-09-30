@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AssetFlow TI - Gestión de Activos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>AssetFlow TI</h1>
+      <p class="subtitle">Sistema de Control y Trazabilidad de Préstamos de Equipos</p>
+    </div>
+  </header>
+
+  <!-- Tarjetas de Resumen (KPIs) -->
+  <div class="kpi-container">
+    <div class="kpi-card">
+      <div class="kpi-title">Total Equipos</div>
+      <div class="kpi-value" id="kpiTotal">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">Disponibles</div>
+      <div class="kpi-value" style="color: var(--success-text);" id="kpiDisponibles">0</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-title">En Préstamo</div>
+      <div class="kpi-value" style="color: var(--danger-text);" id="kpiPrestados">0</div>
+    </div>
+  </div>
+
+  <!-- Panel de Acciones -->
+  <div class="panel">
+    <form id="formEquipo">
+      <input type="text" id="nombre" placeholder="Nombre del nuevo equipo (ej: MacBook Pro 14)" required>
+      <button type="submit">+ Agregar</button>
+    </form>
+    <div style="min-width: 200px;">
+      <input type="text" id="buscador" placeholder="🔍 Buscar equipo o empleado..." onkeyup="filtrarTabla()">
+    </div>
+  </div>
+
+  <!-- Tabla de Equipos -->
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Equipo</th>
+          <th>Estado</th>
+          <th>Empleado Asignado</th>
+          <th>Fecha Límite</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="tabla"></tbody>
+    </table>
+  </div>
+
+  <!-- Modal Interactivo para Préstamos -->
+  <div class="modal-overlay" id="modalPrestar">
+    <div class="modal">
+      <h3>Asignar Préstamo de Equipo</h3>
+      <input type="hidden" id="modalEquipoId">
+      <div>
+        <label style="font-size: 0.85rem; color: var(--text-muted);">Nombre del Empleado:</label>
+        <input type="text" id="modalEmpleado" placeholder="Ej: Juan Pérez" required style="margin-top: 0.3rem;">
+      </div>
+      <div>
+        <label style="font-size: 0.85rem; color: var(--text-muted);">Fecha Límite de Devolución:</label>
+        <input type="date" id="modalFechaLimite" required style="margin-top: 0.3rem;">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-return" onclick="cerrarModal()">Cancelar</button>
+        <button type="button" onclick="confirmarPrestamo()">Confirmar Préstamo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
